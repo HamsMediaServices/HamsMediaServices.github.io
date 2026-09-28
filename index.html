@@ -1,0 +1,2995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDIUS — All Your Media & Content in One Personal Dashboard</title>
+  <meta name="description"
+    content="MEDIUS is the ultimate personal media hub. Track news, listen to podcasts, watch videos without algorithmic noise, and secure documents in a private PIN vault.">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Zero Hour';
+      src: url('Zero%20Hour.otf') format('opentype'),
+        url('Zero Hour.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ==========================================================================
+       CSS RESET & CUSTOM PROPERTIES (LIGHT THEME)
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      /* Light Theme Color Palette */
+      --bg-base: #f6f8fb;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffffff;
+      --bg-alt: #f1f4f9;
+
+      /* App Brand Blue & Accents */
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-glow: rgba(59, 130, 246, 0.22);
+      --btn-primary-bg: linear-gradient(135deg, #3b82f6, #2563eb);
+
+      /* App Category Badge Colors */
+      --badge-blue-bg: #e1f0fe;
+      --badge-blue-text: #1976d2;
+      --badge-purple-bg: #f3e5f5;
+      --badge-purple-text: #8e24aa;
+      --badge-amber-bg: #fff3e0;
+      --badge-amber-text: #f57c00;
+      --badge-emerald-bg: #ecfdf5;
+      --badge-emerald-text: #059669;
+      --badge-rose-bg: #ffebee;
+      --badge-rose-text: #e53935;
+
+      --accent-cyan: #0288d1;
+      --accent-purple: #8e24aa;
+      --accent-emerald: #10b981;
+
+      /* Typography Colors */
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #94a3b8;
+
+      /* Borders & Shadows */
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-highlight: rgba(59, 130, 246, 0.35);
+
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.09);
+      --shadow-glow: 0 0 35px var(--primary-glow);
+
+      /* Component-specific variables (Theme Responsive) */
+      --header-bg: rgba(255, 255, 255, 0.88);
+      --body-gradient: radial-gradient(circle at 12% 15%, rgba(59, 130, 246, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 88% 55%, rgba(2, 136, 209, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(142, 36, 170, 0.04) 0%, transparent 50%);
+
+      --hero-title-gradient: linear-gradient(135deg, #0f172a 15%, var(--primary) 70%, var(--accent-cyan) 100%);
+      --hero-badge-bg: var(--badge-blue-bg);
+      --hero-badge-text: #1d4ed8;
+      --hero-badge-border: rgba(59, 130, 246, 0.2);
+
+      --store-btn-bg: rgba(255, 255, 255, 0.9);
+      --store-btn-hover-bg: #ffffff;
+      --store-btn-text: #0f172a;
+      --store-btn-border: var(--border-subtle);
+
+      --phone-wrapper-bg: #1e293b;
+      --phone-wrapper-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.08);
+      --phone-wrapper-hover-shadow: 0 30px 70px -12px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.3);
+
+      --floating-card-bg: rgba(255, 255, 255, 0.94);
+      --floating-card-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+
+      --feature-card-bg: #ffffff;
+      --feature-card-hover-border: rgba(59, 130, 246, 0.3);
+      --feature-card-hover-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.08), 0 0 25px rgba(59, 130, 246, 0.1);
+
+      --experience-banner-bg: linear-gradient(135deg, rgba(239, 246, 255, 0.8) 0%, rgba(240, 249, 255, 0.9) 100%);
+      --experience-banner-border: rgba(59, 130, 246, 0.2);
+      --experience-visual-bg: #ffffff;
+      --interactive-item-bg: #f8fafc;
+      --snippet-searchbar-bg: #f1f5f9;
+      --snippet-searchbar-hover-bg: #e2e8f0;
+      --snippet-searchbar-kbd-bg: #ffffff;
+
+      --testimonial-card-bg: #ffffff;
+      --testimonial-card-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      --testimonial-card-hover-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+
+      --cta-box-bg: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #0288d1 100%);
+      --cta-pill-color: #bfdbfe;
+      --cta-btn-bg: #ffffff;
+      --cta-btn-text: #1d4ed8;
+
+      --footer-bg: #ffffff;
+
+      --theme-toggle-bg: #f1f5f9;
+      --theme-toggle-border: var(--border-subtle);
+      --theme-toggle-color: var(--text-main);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+
+      --max-width: 1200px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: 0.15s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: var(--bg-base);
+      background-image: var(--body-gradient);
+      background-attachment: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Container Utility */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION (LIGHT THEME)
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: var(--transition);
+    }
+
+    .site-header.header-scrolled {
+      border-bottom-color: var(--border-highlight);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    /* Logo */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-logo span {
+      font-family: 'Zero Hour', sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: 0.05em;
+    }
+
+    .font-zero-hour {
+      font-family: 'Zero Hour', sans-serif;
+      font-weight: normal;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-logo-img {
+      width: 42px;
+      height: 42px;
+      display: block;
+      border-radius: 10px;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));
+      transition: transform var(--transition), filter var(--transition);
+    }
+
+    .brand-logo:hover .brand-logo-img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.18));
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .brand-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+      border-radius: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Button Components */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.75rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
+      background: linear-gradient(135deg, #4f8ff7, var(--primary));
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 0.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ==========================================================================
+       HERO SECTION (LIGHT THEME)
+       ========================================================================== */
+    .hero-section {
+      padding: 5rem 0 6rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      background: var(--badge-blue-bg);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-emerald);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+      }
+    }
+
+    .hero-title {
+      font-size: 3.6rem;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .hero-title-gradient {
+      background: var(--hero-title-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+    }
+
+    /* App Store Download Badges (Light Card Style) */
+    .download-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .store-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: var(--store-btn-bg);
+      border: 1px solid var(--store-btn-border);
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+    }
+
+    .store-btn:hover {
+      background: var(--store-btn-hover-bg);
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.12);
+    }
+
+    .store-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--text-main);
+      flex-shrink: 0;
+    }
+
+    .store-btn-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .store-btn-text .caption {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-subtle);
+      line-height: 1.1;
+      font-weight: 600;
+    }
+
+    .store-btn-text .platform {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    /* Hero Trust Metrics */
+    .hero-metrics {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.75rem;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .metric-value .stars {
+      color: #f59e0b;
+      font-size: 0.95rem;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       PHONE MOCKUP FRAME (WITH REAL LIGHT APP SCREENSHOT)
+       ========================================================================== */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mockup-glow {
+      position: absolute;
+      width: 340px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(2, 136, 209, 0.12) 45%, transparent 70%);
+      filter: blur(55px);
+      z-index: 1;
+    }
+
+    .phone-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 315px;
+      aspect-ratio: 460 / 1024;
+      background: #0f172a;
+      border: 11px solid #1e293b;
+      border-radius: 46px;
+      box-shadow:
+        0 25px 60px -15px rgba(15, 23, 42, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 0 45px rgba(59, 130, 246, 0.18);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .phone-wrapper:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow:
+        0 30px 70px -12px rgba(15, 23, 42, 0.3),
+        0 0 0 1px rgba(59, 130, 246, 0.4),
+        0 0 50px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Top Speaker & Punch-hole Camera Notch */
+    .phone-notch {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78px;
+      height: 14px;
+      background: #000;
+      border-radius: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .camera-lens {
+      width: 7px;
+      height: 7px;
+      background: #0d1527;
+      border: 1.5px solid #1e293b;
+      border-radius: 50%;
+    }
+
+    .speaker-grill {
+      width: 28px;
+      height: 3px;
+      background: #1e293b;
+      border-radius: 2px;
+    }
+
+    /* Phone Screenshot / Video Screen */
+    .phone-screenshot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 34px;
+      transition: opacity 0.35s ease;
+    }
+
+    .phone-video-light {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .phone-video-dark {
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    [data-theme="dark"] .phone-video-light {
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    [data-theme="dark"] .phone-video-dark {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    /* Subtle Glass Glare Reflection */
+    .phone-glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0.05) 30%,
+          transparent 55%);
+      pointer-events: none;
+      border-radius: 34px;
+      z-index: 5;
+    }
+
+    /* Floating Feature Badges around Phone (Light Glass Style) */
+    .floating-card {
+      position: absolute;
+      background: var(--floating-card-bg);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+      backdrop-filter: blur(14px);
+      z-index: 3;
+      animation: floatSlow 4s ease-in-out infinite alternate;
+    }
+
+    .floating-card-1 {
+      top: 20%;
+      left: -48px;
+    }
+
+    .floating-card-2 {
+      bottom: 22%;
+      right: -45px;
+      animation-delay: -2s;
+    }
+
+    @keyframes floatSlow {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating-card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .floating-card-icon.shield {
+      background: var(--badge-emerald-bg);
+      color: var(--badge-emerald-text);
+    }
+
+    .floating-card-icon.audio {
+      background: var(--badge-purple-bg);
+      color: var(--badge-purple-text);
+    }
+
+    .floating-card-text h6 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .floating-card-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       SECTION HEADINGS
+       ========================================================================== */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-pill {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       FEATURES SECTION (4 ICON CARDS - LIGHT THEME)
+       ========================================================================== */
+    .features-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-highlight);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px -5px rgba(59, 130, 246, 0.12);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 1.5rem;
+      background: var(--badge-blue-bg);
+      border: 1px solid rgba(25, 118, 210, 0.15);
+    }
+
+    .feature-icon-box svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--badge-blue-text);
+    }
+
+    .feature-card:nth-child(2) .feature-icon-box {
+      background: var(--badge-amber-bg);
+      border-color: rgba(245, 124, 0, 0.15);
+    }
+
+    .feature-card:nth-child(2) .feature-icon-box svg {
+      fill: var(--badge-amber-text);
+    }
+
+    .feature-card:nth-child(3) .feature-icon-box {
+      background: #e0f7fa;
+      border-color: rgba(0, 131, 143, 0.15);
+    }
+
+    .feature-card:nth-child(3) .feature-icon-box svg {
+      fill: #00838f;
+    }
+
+    .feature-card:nth-child(4) .feature-icon-box {
+      background: var(--badge-purple-bg);
+      border-color: rgba(142, 36, 170, 0.15);
+    }
+
+    .feature-card:nth-child(4) .feature-icon-box svg {
+      fill: var(--badge-purple-text);
+    }
+
+    .feature-card:nth-child(5) .feature-icon-box {
+      background: var(--badge-rose-bg);
+      border-color: rgba(225, 29, 72, 0.15);
+    }
+
+    .feature-card:nth-child(5) .feature-icon-box svg {
+      fill: var(--badge-rose-text);
+    }
+
+    .feature-card:nth-child(6) .feature-icon-box {
+      background: #e8eaf6;
+      border-color: rgba(40, 53, 147, 0.15);
+    }
+
+    .feature-card:nth-child(6) .feature-icon-box svg {
+      fill: #283593;
+    }
+
+    .feature-card:nth-child(7) .feature-icon-box {
+      background: #fce4ec;
+      border-color: rgba(194, 24, 91, 0.15);
+    }
+
+    .feature-card:nth-child(7) .feature-icon-box svg {
+      fill: #c2185b;
+    }
+
+    .feature-card:nth-child(8) .feature-icon-box {
+      background: #fffde7;
+      border-color: rgba(245, 127, 23, 0.15);
+    }
+
+    .feature-card:nth-child(8) .feature-icon-box svg {
+      fill: #f57f17;
+    }
+
+    .feature-card:nth-child(9) .feature-icon-box {
+      background: #fff8e1;
+      border-color: rgba(255, 143, 0, 0.15);
+    }
+
+    .feature-card:nth-child(9) .feature-icon-box svg {
+      fill: #ff8f00;
+    }
+
+    .feature-card:nth-child(10) .feature-icon-box {
+      background: #e0f2f1;
+      border-color: rgba(0, 105, 92, 0.15);
+    }
+
+    .feature-card:nth-child(10) .feature-icon-box svg {
+      fill: #00695c;
+    }
+
+    .feature-card:nth-child(11) .feature-icon-box {
+      background: var(--badge-emerald-bg);
+      border-color: rgba(5, 150, 105, 0.15);
+    }
+
+    .feature-card:nth-child(11) .feature-icon-box svg {
+      fill: var(--badge-emerald-text);
+    }
+
+    .feature-card:nth-child(12) .feature-icon-box {
+      background: #eef2ff;
+      border-color: rgba(79, 70, 229, 0.15);
+    }
+
+    .feature-card:nth-child(12) .feature-icon-box svg {
+      fill: #4f46e5;
+    }
+
+    .feature-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .feature-list li svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--accent-emerald);
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       APP EXPERIENCE / HIGHLIGHT BANNER (LIGHT THEME)
+       ========================================================================== */
+    .experience-banner {
+      margin: 3rem 0 6rem;
+      background: var(--experience-banner-bg);
+      border: 1px solid var(--experience-banner-border);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.08);
+    }
+
+    .experience-banner::after {
+      content: '';
+      position: absolute;
+      right: -10%;
+      bottom: -30%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .experience-content h3 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+      color: var(--text-main);
+    }
+
+    .experience-content p {
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-box {
+      border-left: 2px solid var(--primary);
+      padding-left: 1rem;
+    }
+
+    .stat-number {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .experience-visual {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .snippet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .snippet-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .snippet-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .snippet-dot:nth-child(1) {
+      background: #ef4444;
+    }
+
+    .snippet-dot:nth-child(2) {
+      background: #f59e0b;
+    }
+
+    .snippet-dot:nth-child(3) {
+      background: #10b981;
+    }
+
+    .snippet-searchbar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.75rem;
+      flex: 1;
+      max-width: 320px;
+      transition: all var(--transition-fast);
+    }
+
+    .snippet-searchbar:hover {
+      border-color: var(--primary);
+      background: #e2e8f0;
+    }
+
+    .snippet-searchbar .search-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .snippet-searchbar .search-query {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+
+    .snippet-searchbar .search-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 13px;
+      background: var(--primary);
+      margin-left: -2px;
+      animation: searchBlink 1.1s infinite;
+    }
+
+    @keyframes searchBlink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .snippet-searchbar .search-shortcut {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-subtle);
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 0.1rem 0.35rem;
+      line-height: 1;
+    }
+
+    .interactive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .interactive-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .badge-pill {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-pill.rss {
+      background: var(--badge-amber-bg);
+      color: var(--badge-amber-text);
+    }
+
+    .badge-pill.podcast {
+      background: var(--badge-purple-bg);
+      color: var(--badge-purple-text);
+    }
+
+    .badge-pill.video {
+      background: var(--badge-rose-bg);
+      color: var(--badge-rose-text);
+    }
+
+    .badge-pill.vault,
+    .badge-pill.pdf {
+      background: var(--badge-emerald-bg);
+      color: var(--badge-emerald-text);
+    }
+
+    /* ==========================================================================
+       TESTIMONIALS / SOCIAL PROOF (LIGHT THEME)
+       ========================================================================== */
+    .testimonials-section {
+      padding: 5rem 0 6rem;
+      position: relative;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .testimonial-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-highlight);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px rgba(59, 130, 246, 0.1);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      color: #f59e0b;
+      margin-bottom: 1.25rem;
+    }
+
+    .testimonial-stars svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+
+    .testimonial-quote {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, var(--accent-cyan));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .author-info h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .author-info span {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       FINAL CALL-TO-ACTION (LIGHT/BLUE HERO BANNER)
+       ========================================================================== */
+    .cta-section {
+      padding: 4rem 0 6rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 32px;
+      padding: 5rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -10px rgba(37, 99, 235, 0.35);
+      color: #fff;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    }
+
+    .cta-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .cta-desc {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons .store-btn {
+      background: #ffffff;
+      color: var(--text-main);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .cta-buttons .store-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .cta-subtext {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       FOOTER (LIGHT THEME)
+       ========================================================================== */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-subtle);
+      padding: 4.5rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      padding-left: 4px;
+    }
+
+    .footer-contact p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-contact strong {
+      color: var(--text-main);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-contact a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .footer-contact a:hover strong {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-legal-links a {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .footer-legal-links a:hover {
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN (MEDIA QUERIES)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3.5rem;
+      }
+
+      .hero-content {
+        align-items: center;
+      }
+
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .download-group {
+        justify-content: center;
+      }
+
+      .hero-metrics {
+        justify-content: center;
+      }
+
+      .experience-banner {
+        grid-template-columns: 1fr;
+        padding: 2.5rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .cta-title {
+        font-size: 2.2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links,
+      .header-cta {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .mobile-nav-active .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-bottom: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-lg);
+        gap: 1.5rem;
+      }
+
+      .floating-card {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.1rem;
+      }
+
+      .phone-wrapper {
+        width: 280px;
+      }
+
+      .store-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .cta-box {
+        padding: 3rem 1.5rem;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    /* ==========================================================================
+       DARK THEME CSS VARIABLES & OVERRIDES
+       ========================================================================== */
+    :root[data-theme="dark"],
+    html[data-theme="dark"],
+    body[data-theme="dark"],
+    [data-theme="dark"] {
+      --bg-base: #07090e;
+      --bg-surface: #0e131f;
+      --bg-card: rgba(22, 29, 46, 0.7);
+      --bg-card-hover: rgba(30, 40, 64, 0.85);
+      --bg-alt: #0e131f;
+
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-hover: #4f46e5;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --btn-primary-bg: linear-gradient(135deg, #6366f1, #4338ca);
+
+      --badge-blue-bg: rgba(56, 189, 248, 0.15);
+      --badge-blue-text: #38bdf8;
+      --badge-purple-bg: rgba(168, 85, 247, 0.15);
+      --badge-purple-text: #c084fc;
+      --badge-amber-bg: rgba(245, 158, 11, 0.15);
+      --badge-amber-text: #fbbf24;
+      --badge-emerald-bg: rgba(16, 185, 129, 0.15);
+      --badge-emerald-text: #34d399;
+      --badge-rose-bg: rgba(244, 63, 94, 0.15);
+      --badge-rose-text: #fb7185;
+
+      --accent-cyan: #06b6d4;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.3);
+
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 35px var(--primary-glow);
+
+      --header-bg: rgba(7, 9, 14, 0.85);
+      --body-gradient: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(6, 182, 212, 0.08) 0%, transparent 45%);
+
+      --hero-title-gradient: linear-gradient(135deg, #fff 30%, #818cf8 70%, #06b6d4 100%);
+      --hero-badge-bg: rgba(99, 102, 241, 0.1);
+      --hero-badge-text: #a5b4fc;
+      --hero-badge-border: rgba(99, 102, 241, 0.2);
+
+      --store-btn-bg: rgba(255, 255, 255, 0.05);
+      --store-btn-hover-bg: rgba(255, 255, 255, 0.1);
+      --store-btn-text: #ffffff;
+      --store-btn-border: rgba(255, 255, 255, 0.1);
+
+      --phone-wrapper-bg: #030712;
+      --phone-wrapper-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --phone-wrapper-hover-shadow: 0 30px 70px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(99, 102, 241, 0.3);
+
+      --floating-card-bg: rgba(14, 19, 31, 0.85);
+      --floating-card-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+
+      --feature-card-bg: rgba(22, 29, 46, 0.7);
+      --feature-card-hover-border: rgba(99, 102, 241, 0.4);
+      --feature-card-hover-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.15);
+
+      --experience-banner-bg: linear-gradient(135deg, rgba(14, 19, 31, 0.7) 0%, rgba(22, 29, 46, 0.7) 100%);
+      --experience-banner-border: rgba(99, 102, 241, 0.2);
+      --experience-visual-bg: #090d16;
+      --interactive-item-bg: rgba(255, 255, 255, 0.03);
+      --snippet-searchbar-bg: rgba(255, 255, 255, 0.05);
+      --snippet-searchbar-hover-bg: rgba(255, 255, 255, 0.08);
+      --snippet-searchbar-kbd-bg: rgba(255, 255, 255, 0.06);
+
+      --testimonial-card-bg: rgba(22, 29, 46, 0.7);
+      --testimonial-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --testimonial-card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+
+      --cta-box-bg: linear-gradient(135deg, #4338ca 0%, #312e81 50%, #0e131f 100%);
+      --cta-pill-color: #a5b4fc;
+      --cta-btn-bg: #ffffff;
+      --cta-btn-text: #312e81;
+
+      --footer-bg: #090d16;
+
+      --theme-toggle-bg: rgba(255, 255, 255, 0.08);
+      --theme-toggle-border: rgba(255, 255, 255, 0.12);
+      --theme-toggle-color: #f8fafc;
+    }
+
+    [data-theme="dark"] .brand-logo {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .brand-logo-img {
+      filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.2));
+    }
+
+    [data-theme="dark"] .hero-title {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .hero-subtitle {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .section-title {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .section-desc {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .nav-links a {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .btn-primary {
+      background: var(--btn-primary-bg);
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+
+    [data-theme="dark"] .btn-primary:hover {
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    }
+
+    /* Hero Store Button in Dark Mode */
+    [data-theme="dark"] .hero-section .store-btn,
+    [data-theme="dark"] .download-group .store-btn {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.16) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    [data-theme="dark"] .hero-section .store-btn:hover,
+    [data-theme="dark"] .download-group .store-btn:hover {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: rgba(99, 102, 241, 0.5) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    [data-theme="dark"] .hero-section .store-btn svg,
+    [data-theme="dark"] .download-group .store-btn svg {
+      fill: #ffffff !important;
+    }
+
+    [data-theme="dark"] .hero-section .store-btn .caption,
+    [data-theme="dark"] .download-group .store-btn .caption {
+      color: #94a3b8 !important;
+    }
+
+    [data-theme="dark"] .hero-section .store-btn .platform,
+    [data-theme="dark"] .download-group .store-btn .platform {
+      color: #ffffff !important;
+    }
+
+    /* CTA Box Store Button in Both Themes (Always crisp white card with dark text) */
+    .cta-buttons .store-btn,
+    .cta-box .store-btn,
+    [data-theme="dark"] .cta-buttons .store-btn,
+    [data-theme="dark"] .cta-box .store-btn {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    .cta-buttons .store-btn:hover,
+    .cta-box .store-btn:hover,
+    [data-theme="dark"] .cta-buttons .store-btn:hover,
+    [data-theme="dark"] .cta-box .store-btn:hover {
+      background: #ffffff !important;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .cta-buttons .store-btn svg,
+    .cta-box .store-btn svg,
+    [data-theme="dark"] .cta-buttons .store-btn svg,
+    [data-theme="dark"] .cta-box .store-btn svg {
+      fill: #0f172a !important;
+    }
+
+    .cta-buttons .store-btn .caption,
+    .cta-box .store-btn .caption,
+    [data-theme="dark"] .cta-buttons .store-btn .caption,
+    [data-theme="dark"] .cta-box .store-btn .caption {
+      color: #64748b !important;
+    }
+
+    .cta-buttons .store-btn .platform,
+    .cta-box .store-btn .platform,
+    [data-theme="dark"] .cta-buttons .store-btn .platform,
+    [data-theme="dark"] .cta-box .store-btn .platform {
+      color: #0f172a !important;
+    }
+
+    [data-theme="dark"] .metric-value {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .metric-label {
+      color: var(--text-subtle);
+    }
+
+    [data-theme="dark"] .feature-card {
+      background: var(--feature-card-bg);
+      border: 1px solid var(--border-subtle);
+    }
+
+    [data-theme="dark"] .feature-card:hover {
+      border-color: var(--feature-card-hover-border);
+      box-shadow: var(--feature-card-hover-shadow);
+      background: var(--bg-card-hover);
+    }
+
+    [data-theme="dark"] .feature-card::before {
+      background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.12), transparent 40%);
+    }
+
+    [data-theme="dark"] .feature-icon-box {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(2) .feature-icon-box {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(3) .feature-icon-box {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(4) .feature-icon-box {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(5) .feature-icon-box {
+      background: rgba(244, 63, 94, 0.1);
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(6) .feature-icon-box {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(7) .feature-icon-box {
+      background: rgba(236, 72, 153, 0.1);
+      border-color: rgba(236, 72, 153, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(8) .feature-icon-box {
+      background: rgba(234, 179, 8, 0.1);
+      border-color: rgba(234, 179, 8, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(9) .feature-icon-box {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(10) .feature-icon-box {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(11) .feature-icon-box {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    [data-theme="dark"] .feature-card:nth-child(12) .feature-icon-box {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.25);
+    }
+
+    [data-theme="dark"] .feature-card h3 {
+      color: #ffffff;
+    }
+
+    /* Experience Banner in Dark Mode */
+    [data-theme="dark"] .experience-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    [data-theme="dark"] .experience-banner::after {
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%) !important;
+    }
+
+    [data-theme="dark"] .experience-content h3 {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .experience-content p {
+      color: #94a3b8 !important;
+    }
+
+    [data-theme="dark"] .stat-box {
+      border-left: 2px solid #6366f1 !important;
+    }
+
+    [data-theme="dark"] .stat-number {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .stat-label {
+      color: #94a3b8 !important;
+    }
+
+    [data-theme="dark"] .experience-visual {
+      background: var(--experience-visual-bg);
+      border: 1px solid var(--border-subtle);
+    }
+
+    [data-theme="dark"] .interactive-item {
+      background: var(--interactive-item-bg);
+      border-color: var(--border-subtle);
+    }
+
+    [data-theme="dark"] .snippet-searchbar {
+      background: var(--snippet-searchbar-bg);
+      border-color: var(--border-subtle);
+    }
+
+    [data-theme="dark"] .snippet-searchbar:hover {
+      background: var(--snippet-searchbar-hover-bg);
+    }
+
+    [data-theme="dark"] .snippet-searchbar .search-shortcut {
+      background: var(--snippet-searchbar-kbd-bg);
+      border-color: var(--border-subtle);
+      color: var(--text-subtle);
+    }
+
+    [data-theme="dark"] .testimonial-card {
+      background: var(--testimonial-card-bg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--testimonial-card-shadow);
+    }
+
+    [data-theme="dark"] .testimonial-card:hover {
+      box-shadow: var(--testimonial-card-hover-shadow);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    [data-theme="dark"] .author-info h5 {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .author-avatar {
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+    }
+
+    [data-theme="dark"] .cta-title {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .cta-desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    [data-theme="dark"] .cta-box .btn-primary {
+      background: var(--cta-btn-bg);
+      color: var(--cta-btn-text);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .cta-box .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="dark"] .site-footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    [data-theme="dark"] .footer-col h4 {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .footer-contact strong {
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      [data-theme="dark"] .nav-links {
+        background: rgba(7, 9, 14, 0.98);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    /* ==========================================================================
+       THEME TOGGLE BUTTON STYLES & TRANSITIONS
+       ========================================================================== */
+    html.theme-transitioning,
+    html.theme-transitioning body,
+    html.theme-transitioning .site-header,
+    html.theme-transitioning .feature-card,
+    html.theme-transitioning .testimonial-card,
+    html.theme-transitioning .experience-visual,
+    html.theme-transitioning .interactive-item,
+    html.theme-transitioning .site-footer {
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--theme-toggle-bg);
+      border: 1px solid var(--theme-toggle-border);
+      color: var(--theme-toggle-color);
+      cursor: pointer;
+      position: relative;
+      transition: all var(--transition-fast);
+      outline: none;
+      padding: 0;
+      flex-shrink: 0;
+      z-index: 10;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.90);
+    }
+
+    .theme-icon {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, color 0.25s ease;
+    }
+
+    /* In Light mode, show moon icon */
+    :root:not([data-theme="dark"]) .sun-icon,
+    html:not([data-theme="dark"]) .sun-icon {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.4);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    :root:not([data-theme="dark"]) .moon-icon,
+    html:not([data-theme="dark"]) .moon-icon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      visibility: visible;
+      pointer-events: none;
+      color: #3b82f6;
+    }
+
+    /* In Dark mode, show sun icon */
+    [data-theme="dark"] .sun-icon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      visibility: visible;
+      pointer-events: none;
+      color: #fbbf24;
+    }
+
+    [data-theme="dark"] .moon-icon {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.4);
+      visibility: hidden;
+      pointer-events: none;
+    }
+  </style>
+  <script>
+    /* MEDIUS Theme Controller - Always Opens in Light Mode First */
+    (function () {
+      // By user requirement: The website must ALWAYS open in Light mode first!
+      document.documentElement.setAttribute('data-theme', 'light');
+
+      function updateMockupAndUI(theme) {
+        var vidL = document.getElementById('phone-video-light');
+        var vidD = document.getElementById('phone-video-dark');
+        if (theme === 'dark') {
+          if (vidD && vidD.paused) vidD.play().catch(function () { });
+        } else {
+          if (vidL && vidL.paused) vidL.play().catch(function () { });
+        }
+        var btn = document.getElementById('theme-toggle');
+        if (btn) {
+          var label = theme === 'dark' ? 'Switch to Light theme' : 'Switch to Dark theme';
+          btn.setAttribute('title', label);
+          btn.setAttribute('aria-label', label);
+        }
+      }
+
+      var lastToggle = 0;
+      window.toggleTheme = function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var now = Date.now();
+        if (now - lastToggle < 250) return;
+        lastToggle = now;
+
+        var current = document.documentElement.getAttribute('data-theme') || (document.body && document.body.getAttribute('data-theme')) || 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.classList.add('theme-transitioning');
+        if (document.body) document.body.classList.add('theme-transitioning');
+
+        document.documentElement.setAttribute('data-theme', next);
+        if (document.body) document.body.setAttribute('data-theme', next);
+
+        updateMockupAndUI(next);
+
+        console.log('[MEDIUS] Switched to theme:', next);
+
+        setTimeout(function () {
+          document.documentElement.classList.remove('theme-transitioning');
+          if (document.body) document.body.classList.remove('theme-transitioning');
+        }, 350);
+      };
+
+      window.initThemeState = function () {
+        var current = document.documentElement.getAttribute('data-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', current);
+        if (document.body) document.body.setAttribute('data-theme', current);
+        updateMockupAndUI(current);
+
+        var btn = document.getElementById('theme-toggle');
+        if (btn && !btn._hasClickListener) {
+          btn._hasClickListener = true;
+          btn.addEventListener('click', window.toggleTheme);
+        }
+      };
+
+      // Preload screenshots for instantaneous toggle
+      try {
+        var imgD = new Image(); imgD.src = 'medius_screenshot.jpg';
+        var imgL = new Image(); imgL.src = 'medius_screenshot_light.jpg';
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="site-header" id="header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo" aria-label="MEDIUS Home">
+        <img src="medius_app_logo.png" alt="MEDIUS App Logo" class="brand-logo-img" width="42" height="42">
+        <span>MEDIUS</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#download">Download</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme(event)"
+          aria-label="Toggle Light and Dark Mode" title="Toggle theme">
+          <span class="theme-icon sun-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon moon-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+        </button>
+        <a href="#download" class="btn btn-primary header-cta">Get Started</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>New: MEDIUS v1.0.0 — The Ultimate Media Hub</span>
+          </div>
+
+          <h1 class="hero-title">
+            All your media in one fluid dashboard. <span class="hero-title-gradient">Zero noise.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Take back control of what you read, watch, and listen to. Combine your favorite websites, RSS feeds,
+            podcasts, videos, photos, images, notes, and PDF documents into one intuitive app, completely free from
+            algorithmic
+            rabbit
+            holes.
+          </p>
+
+          <!-- Google Play Download Badge -->
+          <div class="download-group">
+            <a href="#download" class="store-btn" aria-label="Get it on Google Play">
+              <!-- Google Play SVG -->
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+              </svg>
+              <div class="store-btn-text">
+                <span class="caption">Get it on</span>
+                <span class="platform">Google Play</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Social Proof Metrics -->
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <div class="metric-value">100%</div>
+              <span class="metric-label">Private & Local Data</span>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">0%</div>
+              <span class="metric-label">Algorithmic Tracking</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Mockup Preview (With Real Light App Screenshot) -->
+        <div class="hero-visual">
+          <div class="mockup-glow"></div>
+
+          <!-- Floating Info Cards -->
+          <div class="floating-card floating-card-1">
+            <div class="floating-card-icon shield">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+              </svg>
+            </div>
+            <div class="floating-card-text">
+              <h6>PIN Vault Protected</h6>
+              <p>Categories are encrypted locally</p>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-2">
+            <div class="floating-card-icon audio">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="floating-card-text">
+              <h6>Background Audio</h6>
+              <p>Podcasts play on the background</p>
+            </div>
+          </div>
+
+          <!-- Smartphone Shell -->
+          <div class="phone-wrapper">
+            <!-- Camera & Speaker Notch -->
+            <div class="phone-notch">
+              <div class="camera-lens"></div>
+              <div class="speaker-grill"></div>
+            </div>
+
+            <!-- Light Mode Demo Video (Autoplay, Seamless Loop, Muted) -->
+            <video id="phone-video-light" class="phone-screenshot phone-video-light" autoplay loop muted playsinline preload="auto" poster="medius_screenshot_light.jpg">
+              <source src="medius_demo_video_light.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+            <!-- Dark Mode Demo Video (Autoplay, Seamless Loop, Muted) -->
+            <video id="phone-video-dark" class="phone-screenshot phone-video-dark" autoplay loop muted playsinline preload="auto" poster="medius_screenshot.jpg">
+              <source src="medius_demo_video_dark.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+            <!-- Glass Reflection Glare -->
+            <div class="phone-glare"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         KEY FEATURES (4 ICON CARDS - LIGHT THEME)
+         ========================================================================== -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-pill">All-in-One Powerhouse</span>
+          <h2 class="section-title">Built for those who value intentional focus</h2>
+          <p class="section-desc">
+            No endless doomscrolling or attention traps. MEDIUS brings all your curated media together in one organized,
+            distraction-free environment.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1: Browse Media Catalog -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+              </svg>
+            </div>
+            <h3>Browse Media Catalog</h3>
+            <p>
+              Explore a curated discovery catalog with trusted media sources across World News, AI, Tech, Finance,
+              Sports, Lifestyle and many more. Add quality channels to your personal dashboard with a single tap. Media
+              sources are updated regularly.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Dozens of hand-picked, pre-configured quality channels
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Organized neatly by category for instant exploration
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Custom RSS & Auto-Discovery -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z" />
+              </svg>
+            </div>
+            <h3>Smart RSS & Auto-Discovery</h3>
+            <p>
+              Add any RSS or Atom feed from across the open web. Simply type a source name or paste a website URL, and
+              MEDIUS automatically discovers and pairs the exact feed address.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Intelligent feed detection by website name or URL
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Full article reader with high-resolution imagery
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Websites & Direct Links -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm7.93 9h-3.18a15.7 15.7 0 0 0-1.4-5.32A8.04 8.04 0 0 1 19.93 11zM12 4.07a14.22 14.22 0 0 1 1.94 6.93H10.06A14.22 14.22 0 0 1 12 4.07zM4.07 13h3.18a15.7 15.7 0 0 0 1.4 5.32A8.04 8.04 0 0 1 4.07 13zm3.18-2H4.07a8.04 8.04 0 0 1 4.58-5.32A15.7 15.7 0 0 0 7.25 11zm4.75 8.93A14.22 14.22 0 0 1 10.06 13h3.88a14.22 14.22 0 0 1-1.94 6.93zm2.68-1.61A15.7 15.7 0 0 0 16.08 13h3.18a8.04 8.04 0 0 1-4.58 5.32z" />
+              </svg>
+            </div>
+            <h3>Websites & Direct Links</h3>
+            <p>
+              Save your favorite publications, blogs, and niche websites directly as tiles on your dashboard. Launch
+              into a clean, distraction-free reader view without browser clutter or open in your own browser.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Instant one-tap access to your essential web destinations
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Seamlessly organized within your chosen category dashboard
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 4: Podcasts & Background Audio -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z" />
+              </svg>
+            </div>
+            <h3>Podcasts & Background Audio</h3>
+            <p>
+              Enjoy audio podcast episodes with continuous background playback. Keep listening while browsing other
+              categories.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Persistent mini-player and full-screen playback controls
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Quick skip (-15s / +15s) and automatic progress saving
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 5: Curated Video Channels -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
+              </svg>
+            </div>
+            <h3>Curated Video Channels</h3>
+            <p>
+              Track your favorite video creators and YouTube feeds in a clean, distraction-free grid. Tap any video tile
+              to launch it directly and securely in the official YouTube app.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Organize YouTube feeds alongside your articles and podcasts
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Direct handoff to the official YouTube app per Google guidelines
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 6: Offline PDF Documents -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm12 6V9c0-.55-.45-1-1-1h-2v6h2c.55 0 1-.45 1-1zm-1.5-3h.5v2h-.5v-2zM10 8h3v1.5h-1.5v.75h1.5V11h-1.5V14H10V8z" />
+              </svg>
+            </div>
+            <h3>Offline PDF Documents</h3>
+            <p>
+              Store important PDF contracts, manuals, and documents right on your dashboard. Read, navigate, and inspect
+              them anytime without relying on internet access or cloud sync.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                High-performance PDF reader with smooth 4x pinch-to-zoom
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                100% on-device offline storage with instant document opening
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 7: Photos & Images -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path
+                  d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM5 19l3.5-4.5 2.5 3.01L14.5 12l4.5 6H5z" />
+              </svg>
+            </div>
+            <h3>Photos & Images</h3>
+            <p>
+              Pin your favorite reference photos, inspirational pictures, and visual assets directly as dashboard tiles.
+              Inspect details with full-screen zoom and complete local privacy.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Smooth full-resolution photo viewer with pan & zoom
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Organized visual tiles directly in your custom categories
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 8: Personal Notes & Thoughts -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+              </svg>
+            </div>
+            <h3>Personal Notes & Thoughts</h3>
+            <p>
+              Jot down quick thoughts, save article takeaways, or draft personal notes. Pin your notes directly as
+              interactive dashboard tiles alongside your relevant topics.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Built-in note editor with direct tile integration
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Easy sharing and instant access across your custom categories
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 9: Favorites & Bookmarks -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            </div>
+            <h3>Favorites & Bookmarks</h3>
+            <p>
+              Star articles, podcast episodes, and media items with a single tap. All your favorite discoveries are
+              gathered into a dedicated, instant-access favorites hub.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                One-tap starring across all media types
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Dedicated favorites collection accessible anywhere in the app
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 10: Universal Searchable Archive -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+              </svg>
+            </div>
+            <h3>Universal Searchable Archive</h3>
+            <p>
+              Search across all your RSS articles, personal notes, PDF documents, and feeds simultaneously. Instantly
+              surface that one quote, article, or receipt with zero delay.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Search across titles, sources, categories, and note contents
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Lightning-fast local query latency under 100 milliseconds
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 11: PIN Vault & Local Privacy -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+              </svg>
+            </div>
+            <h3>PIN Vault & Local Privacy</h3>
+            <p>
+              Your personal data belongs strictly to you. Lock sensitive categories behind a secure 4-digit PIN code. No
+              tracking, no mandatory cloud sync.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Secure 4-digit PIN protection for confidential categories
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                100% on-device encryption without external data mining
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 12: Dynamic Grid & Tile Layouts -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M5 11h4c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2zm0 10h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2zm10-10h4c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2zm0 10h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2z" />
+              </svg>
+            </div>
+            <h3>Dynamic Grid & Tile Layouts</h3>
+            <p>
+              Switch seamlessly between three distinct layout modes to suit your reading style. Whether you prefer a
+              vibrant 3-column media grid, a focused single-column feed, or detailed cards, your dashboard adapts
+              instantly with fluid drag-and-drop reordering.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                3 switchable viewing modes: 3-column grid, 1-column feed & detailed view
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+                Fluid drag-and-drop tile reordering and 1-tap pinning to Home
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Experience Deep-Dive Banner -->
+        <div class="experience-banner" id="experience">
+          <div class="experience-content">
+            <span class="section-pill">Effortless Experience</span>
+            <h3>A single search bar. Every piece of media at your fingertips.</h3>
+            <p>
+              Whether you're looking for an astronomy podcast, a saved PDF contract, or the latest news updates: MEDIUS
+              indexes everything locally and serves it in milliseconds.
+            </p>
+            <div class="stats-row">
+              <div class="stat-box">
+                <span class="stat-number">7 in 1</span>
+                <span class="stat-label">Websites, RSS, Images, Audio, Video, Text, PDF</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number">&lt; 0.1s</span>
+                <span class="stat-label">Search Latency</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Local Storage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-visual">
+            <div class="snippet-header">
+              <div class="snippet-dots">
+                <div class="snippet-dot"></div>
+                <div class="snippet-dot"></div>
+                <div class="snippet-dot"></div>
+              </div>
+              <div class="snippet-searchbar">
+                <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <span class="search-query">Artificial Intelligence</span>
+                <span class="search-cursor"></span>
+                <span class="search-shortcut">⌘K</span>
+              </div>
+            </div>
+            <div class="interactive-list">
+              <div class="interactive-item">
+                <div class="item-left">
+                  <span class="badge-pill rss">RSS</span>
+                  <span>Breakthrough in Autonomous AI Agents Announced</span>
+                </div>
+              </div>
+              <div class="interactive-item">
+                <div class="item-left">
+                  <span class="badge-pill podcast">Podcast</span>
+                  <span>The AI Revolution: Future of Neural Networks</span>
+                </div>
+              </div>
+              <div class="interactive-item">
+                <div class="item-left">
+                  <span class="badge-pill pdf">PDF</span>
+                  <span>AI_Safety_and_Governance_2026.pdf</span>
+                </div>
+              </div>
+              <div class="interactive-item">
+                <div class="item-left">
+                  <span class="badge-pill video">Video</span>
+                  <span>Visual Guide to Transformer Neural Networks</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TESTIMONIALS & SOCIAL PROOF (LIGHT THEME)
+         ========================================================================== -->
+    <section class="testimonials-section" id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-pill">User Stories</span>
+          <h2 class="section-title">What our community says about <span class="font-zero-hour">MEDIUS</span></h2>
+          <p class="section-desc">
+            Discover how thousands of users reclaimed peace of mind, focus, and clarity in their daily media
+            consumption.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Review 1 -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-stars">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <p class="testimonial-quote">
+                "I was exhausted by social media algorithms designed to keep me hooked. MEDIUS delivers exactly what I
+                want from sources I trust, plus background podcasts while I commute. The 3D dashboard feels incredible."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">MB</div>
+              <div class="author-info">
+                <h5>Mark van de Beek</h5>
+                <span>Taxi driver</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-stars">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <p class="testimonial-quote">
+                "The PIN-secured vault is why I open MEDIUS every single day. I keep expense receipts and travel
+                documents safe right next to my meeting notes. Completely offline and private."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">SL</div>
+              <div class="author-info">
+                <h5>Sarah Lewis</h5>
+                <span>Management Consultant</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-stars">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <p class="testimonial-quote">
+                "The universal search is unreal. I type two letters and it instantly queries all my RSS feeds,
+                saved PDFs, and notes. A masterpiece of thoughtful design."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar" style="background: linear-gradient(135deg, #8e24aa, #3b82f6);">TD</div>
+              <div class="author-info">
+                <h5>Tomás Delgado</h5>
+                <span>Astrophysics Student</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CALL TO ACTION SECTION (HERO BLUE GRADIENT BANNER)
+         ========================================================================== -->
+    <section class="cta-section" id="download">
+      <div class="container">
+        <div class="cta-box">
+          <span class="section-pill" style="color: #bfdbfe;">Start Today</span>
+          <h2 class="cta-title">Ready to regain clarity and control over your content?</h2>
+          <p class="cta-desc">
+            Download MEDIUS for Android. Set up your personalized media dashboard in under two minutes, tailored
+            precisely to your passions.
+          </p>
+
+          <div class="cta-buttons">
+            <a href="#" class="store-btn" aria-label="Get it on Google Play">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+              </svg>
+              <div class="store-btn-text">
+                <span class="caption">Get it on</span>
+                <span class="platform">Google Play</span>
+              </div>
+            </a>
+          </div>
+
+          <p class="cta-subtext">Distraction-free • No ads • 100% Privacy-compliant</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER (LIGHT THEME)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand">
+          <a href="#" class="brand-logo" aria-label="MEDIUS Home">
+            <img src="medius_app_logo.png" alt="MEDIUS App Logo" class="brand-logo-img" width="42" height="42">
+            <span>MEDIUS</span>
+          </a>
+          <p>
+            The modern personal media manager. Crafted with meticulous attention to detail, lightning-fast
+            performance, and uncompromising privacy.
+          </p>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#download">Download</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Legal & Privacy -->
+        <div class="footer-col">
+          <h4>Privacy & Policies</h4>
+          <ul class="footer-links">
+            <li><a href="https://hamsmediaservices.github.io/medius-legal/medius_privacy_policy.html" target="_blank"
+                rel="noopener noreferrer">Privacy Policy</a></li>
+            <li><a href="https://hamsmediaservices.github.io/medius-legal/medius_terms_and_conditions.html"
+                target="_blank" rel="noopener noreferrer">Terms and Conditions</a></li>
+            <li><a href="https://hamsmediaservices.github.io/medius-legal/medius_privacy_policy.html#local-data-storage"
+                target="_blank" rel="noopener noreferrer">Security & PIN Vault</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Support -->
+        <div class="footer-col footer-contact">
+          <h4>Contact & Support</h4>
+          <p>Questions about MEDIUS or suggestions for new features?</p>
+          <p>Email: <a href="mailto:contactinfo.hms@gmail.com"><strong>contactinfo.hms@gmail.com</strong></a></p>
+          <p>Compatible with Android 10+</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 MEDIUS. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MINIMAL VANILLA JAVASCRIPT (NAV & INTERACTIONS)
+       ========================================================================== -->
+  <script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const header = document.getElementById('header');
+
+    if (mobileBtn && header) {
+      mobileBtn.addEventListener('click', () => {
+        header.classList.toggle('mobile-nav-active');
+      });
+
+      // Close menu when clicking an anchor link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          header.classList.remove('mobile-nav-active');
+        });
+      });
+    }
+
+    // Header scroll background effect
+    window.addEventListener('scroll', () => {
+      if (header) {
+        if (window.scrollY > 40) {
+          header.classList.add('header-scrolled');
+        } else {
+          header.classList.remove('header-scrolled');
+        }
+      }
+    });
+
+    // ==========================================================================
+    // THEME CONTROLLER INITIALIZATION & VIDEO SETUP
+    // ==========================================================================
+    if (typeof window.initThemeState === 'function') {
+      window.initThemeState();
+    }
+
+    const phoneVidLight = document.getElementById('phone-video-light');
+    const phoneVidDark = document.getElementById('phone-video-dark');
+    if (phoneVidLight) {
+      phoneVidLight.play().catch(() => {});
+    }
+    if (phoneVidDark) {
+      phoneVidDark.play().catch(() => {});
+    }
+
+  </script>
+</body>
+
+</html>
